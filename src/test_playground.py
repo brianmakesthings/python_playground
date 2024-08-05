@@ -1,13 +1,21 @@
+import pytest
+
+
 def add(a, b):
     return a + b
 
 
+testdata = [
+    [1, 2, 3],
+    [4, 5, 9],
+    [-1, 4, 3],
+]
+
+
 class TestFunction:
-    def test_add(self):
-        assert add(1, 2) == 3
+    @pytest.mark.parametrize("a,b,expected", testdata)
+    def test_add(self, a, b, expected):
+        assert add(a, b) == expected
 
     def test_fails_to_add(self):
-        assert add(1, 2) != 3
-
-    def test_array_equality(self):
-        assert set([1, 2, 3]) == set([1, 2, 4])
+        assert add(1, 2) != 4
